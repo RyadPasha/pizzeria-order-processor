@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// File: Order.cs
+// Project: PizzeriaOrderProcessor
+// Author: Mohamed Riyad <m@ryad.dev>
+// Created: 26 May, 2025
+// Description: Represents a customer order in the system.
+// -----------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 
@@ -5,11 +13,11 @@ namespace PizzeriaOrderProcessor.Models
 {
     public class Order
     {
-        public string OrderId { get; set; }
-        public string ProductId { get; set; }
+        public required string OrderId { get; set; }
+        public required string ProductId { get; set; }
         public int Quantity { get; set; }
         public DateTime DeliveryAt { get; set; }
         public DateTime CreatedAt { get; set; }
-        public string DeliveryAddress { get; set; }
+        public required string DeliveryAddress { get; set; }
     }
 }

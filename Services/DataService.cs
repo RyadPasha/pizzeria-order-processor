@@ -59,12 +59,29 @@ namespace PizzeriaOrderProcessor.Services
             return ingredientDict;
         }
 
+        public List<Order> LoadOrders(string? filePath = null)
+        {
+            filePath ??= _config.OrdersFilePath;
+            EnsureFileExists(filePath, "Orders");
+
+            return ParseJsonOrders(filePath);
+        }
+
         private static void EnsureFileExists(string filePath, string fileDescription)
         {
             if (!File.Exists(filePath))
             {
                 throw new FileNotFoundException($"{fileDescription} file not found: {filePath}");
             }
+        }
+
+        private static List<Order> ParseJsonOrders(string filePath)
+        {
+            var json = File.ReadAllText(filePath);
+            var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            var orders = JsonSerializer.Deserialize<List<Order>>(json, options) ?? new List<Order>();
+            Console.WriteLine($"Loaded {orders.Count} order entries from {filePath}");
+            return orders;
         }
     }
 }

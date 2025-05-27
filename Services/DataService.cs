@@ -1,3 +1,11 @@
+// -----------------------------------------------------------------------------
+// File: DataService.cs
+// Project: PizzeriaOrderProcessor
+// Author: Mohamed Riyad
+// Created: 27 May, 2025
+// Description: Data service for loading and managing product and order data.
+// -----------------------------------------------------------------------------
+
 using System.Text.Json;
 using PizzeriaOrderProcessor.Models;
 using PizzeriaOrderProcessor.Configuration;
@@ -23,8 +31,13 @@ namespace PizzeriaOrderProcessor.Services
             // JSON structure optimized for O(1) access: { "ProductId": { ProductData } }
             var productDict = JsonSerializer.Deserialize<Dictionary<string, Product>>(json, options);
 
-            Console.WriteLine($"Loaded {(productDict != null ? productDict.Count : 0)} products from {filePath}");
-            return productDict ?? new Dictionary<string, Product>();
+            if (productDict == null || productDict.Count == 0)
+            {
+                throw new InvalidDataException("No products found in file.");
+            }
+
+            Console.WriteLine($"Loaded {productDict.Count} products from {filePath}");
+            return productDict;
         }
     }
 }

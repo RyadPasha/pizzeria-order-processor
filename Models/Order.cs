@@ -27,4 +27,11 @@ namespace PizzeriaOrderProcessor.Models
         public required string ProductName { get; set; }
         public decimal Price { get; set; }
     }
+
+    public class Ingredient
+    {
+        public required string ProductId { get; set; }
+        public required string Name { get; set; }
+        public decimal Amount { get; set; }
+    }
 }

@@ -24,6 +24,7 @@ namespace PizzeriaOrderProcessor.Services
         public Dictionary<string, Product> LoadProducts()
         {
             var filePath = _config.ProductsFilePath;
+            EnsureFileExists(filePath, "Products");
 
             var json = File.ReadAllText(filePath);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -43,6 +44,7 @@ namespace PizzeriaOrderProcessor.Services
         public Dictionary<string, ProductIngredients> LoadProductIngredients()
         {
             var filePath = _config.IngredientsFilePath;
+            EnsureFileExists(filePath, "Ingredients");
 
             var json = File.ReadAllText(filePath);
             var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
@@ -55,6 +57,14 @@ namespace PizzeriaOrderProcessor.Services
 
             Console.WriteLine($"Loaded ingredients for {ingredientDict.Count} products from {filePath}");
             return ingredientDict;
+        }
+
+        private static void EnsureFileExists(string filePath, string fileDescription)
+        {
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"{fileDescription} file not found: {filePath}");
+            }
         }
     }
 }

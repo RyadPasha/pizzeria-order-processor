@@ -37,4 +37,24 @@ namespace PizzeriaOrderProcessor.Models
     {
         public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
     }
+
+    public class OrderItem
+    {
+        public required string ProductId { get; set; }
+        public required string ProductName { get; set; }
+        public int Quantity { get; set; }
+        public decimal UnitPrice { get; set; }
+        public decimal TotalPrice { get; set; }
+    }
+
+    // Aggregated order information
+    public class OrderSummary
+    {
+        public required string OrderId { get; set; }
+        public List<OrderItem> Items { get; set; } = new List<OrderItem>();
+        public decimal TotalPrice { get; set; }
+        public DateTime DeliveryAt { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public required string DeliveryAddress { get; set; }
+    }
 }

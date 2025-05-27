@@ -36,6 +36,7 @@ namespace PizzeriaOrderProcessor.Services
         {
             errors = new List<string>();
 
+            // Basic field validation
             if (string.IsNullOrWhiteSpace(order.OrderId))
                 errors.Add("OrderId cannot be empty");
 
@@ -47,6 +48,13 @@ namespace PizzeriaOrderProcessor.Services
 
             if (string.IsNullOrWhiteSpace(order.DeliveryAddress))
                 errors.Add("DeliveryAddress cannot be empty");
+
+            // Business logic validation
+            if (order.DeliveryAt <= order.CreatedAt)
+                errors.Add("DeliveryAt must be after CreatedAt");
+
+            if (order.CreatedAt > DateTime.Now)
+                errors.Add("CreatedAt cannot be in the future");
 
             // Product existence check - O(1) check
             if (!string.IsNullOrWhiteSpace(order.ProductId) && !_products.ContainsKey(order.ProductId))
@@ -85,7 +93,7 @@ namespace PizzeriaOrderProcessor.Services
                     o.CreatedAt != first.CreatedAt ||
                     o.DeliveryAddress != first.DeliveryAddress).ToList();
 
-                if (inconsistentOrders.Any())
+                if (inconsistentOrders.Count != 0)
                 {
                     errors.Add($"Order {first.OrderId} has inconsistent delivery details across entries");
                 }

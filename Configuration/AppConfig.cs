@@ -1,6 +1,6 @@
 /******************************************************************************
  * File:        AppConfig.cs
- * Author:      Mohamed Riyad
+ * Author:      Mohamed Riyad <m@ryad.dev>
  * Created:     27 May, 2025
  * Description: Configuration settings for the Pizzeria Order Processor application.
  ******************************************************************************/

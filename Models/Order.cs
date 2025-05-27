@@ -20,4 +20,11 @@ namespace PizzeriaOrderProcessor.Models
         public DateTime CreatedAt { get; set; }
         public required string DeliveryAddress { get; set; }
     }
+
+    public class Product
+    {
+        public required string ProductId { get; set; }
+        public required string ProductName { get; set; }
+        public decimal Price { get; set; }
+    }
 }

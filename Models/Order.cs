@@ -32,4 +32,9 @@ namespace PizzeriaOrderProcessor.Models
         public required string Name { get; set; }
         public decimal Amount { get; set; }
     }
+
+    public class ProductIngredients
+    {
+        public List<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
+    }
 }

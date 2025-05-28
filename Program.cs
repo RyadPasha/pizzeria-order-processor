@@ -31,8 +31,13 @@ namespace PizzeriaOrderProcessor
                 var dataService = new DataService(config);
                 var orderProcessor = new OrderProcessor(dataService);
 
+                // Get orderFilePath from args if provided
+                string? orderFilePath = args.Length > 0 ? args[0] : null;
+                if (!string.IsNullOrEmpty(orderFilePath))
+                    Console.WriteLine($"Using order file path: {orderFilePath}");
+
                 // Process orders
-                orderProcessor.ProcessOrders();
+                orderProcessor.ProcessOrders(orderFilePath);
             }
             catch (Exception ex)
             {

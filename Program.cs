@@ -43,6 +43,9 @@ namespace PizzeriaOrderProcessor
             {
                 Console.WriteLine($"Application error: {ex.Message}");
             }
+
+            Console.WriteLine("\nPress any key to exit...");
+            Console.ReadKey();
         }
     }
 }

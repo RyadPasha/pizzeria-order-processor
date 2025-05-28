@@ -64,7 +64,14 @@ namespace PizzeriaOrderProcessor.Services
             filePath ??= _config.OrdersFilePath;
             EnsureFileExists(filePath, "Orders");
 
-            return ParseJsonOrders(filePath);
+            var extension = Path.GetExtension(filePath);
+
+            return extension switch
+            {
+                ".json" => ParseJsonOrders(filePath),
+                ".csv" => ParseCsvOrders(filePath),
+                _ => throw new ArgumentException($"Unsupported file format: {extension}. Use JSON or CSV.")
+            };
         }
 
         private static void EnsureFileExists(string filePath, string fileDescription)
@@ -82,6 +89,64 @@ namespace PizzeriaOrderProcessor.Services
             var orders = JsonSerializer.Deserialize<List<Order>>(json, options) ?? new List<Order>();
             Console.WriteLine($"Loaded {orders.Count} order entries from {filePath}");
             return orders;
+        }
+
+        private List<Order> ParseCsvOrders(string filePath)
+        {
+            var orders = new List<Order>();
+            var lines = File.ReadAllLines(filePath);
+
+            if (lines.Length == 0) return orders;
+
+            var headers = lines[0].Split(',').Select(h => h.Trim().ToLower()).ToArray();
+            var columnMap = CreateColumnMap(headers);
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                try
+                {
+                    var values = lines[i].Split(',');
+                    var order = ParseCsvOrder(values, columnMap);
+                    if (order != null) orders.Add(order);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error parsing CSV line {i + 1}: {ex.Message}");
+                }
+            }
+
+            Console.WriteLine($"Loaded {orders.Count} order entries from {filePath}");
+            return orders;
+        }
+
+        private static Dictionary<string, int> CreateColumnMap(string[] headers)
+        {
+            var map = new Dictionary<string, int>();
+            for (int i = 0; i < headers.Length; i++)
+            {
+                map[headers[i]] = i;
+            }
+            return map;
+        }
+
+        private Order ParseCsvOrder(string[] values, Dictionary<string, int> columnMap)
+        {
+            return new Order
+            {
+                OrderId = GetColumnValue(values, columnMap, "orderid"),
+                ProductId = GetColumnValue(values, columnMap, "productid"),
+                Quantity = int.Parse(GetColumnValue(values, columnMap, "quantity")),
+                DeliveryAt = DateTime.Parse(GetColumnValue(values, columnMap, "deliveryat")),
+                CreatedAt = DateTime.Parse(GetColumnValue(values, columnMap, "createdat")),
+                DeliveryAddress = GetColumnValue(values, columnMap, "deliveryaddress")
+            };
+        }
+
+        private static string GetColumnValue(string[] values, Dictionary<string, int> columnMap, string columnName)
+        {
+            return columnMap.TryGetValue(columnName, out int index) && index < values.Length
+                ? values[index].Trim().Trim('"')
+                : "";
         }
     }
 }

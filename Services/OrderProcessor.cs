@@ -47,6 +47,7 @@ namespace PizzeriaOrderProcessor.Services
 
             // Group orders by OrderId for aggregation
             var groupedOrders = GroupOrdersByOrderId(orders);
+            Console.WriteLine($"Found {groupedOrders.Count} unique orders from {orders.Count} entries");
 
             var validOrderSummaries = new List<OrderSummary>();
 

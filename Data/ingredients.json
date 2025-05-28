@@ -1,0 +1,64 @@
+{
+  "P001": {
+    "Ingredients": [
+      { "Name": "Pizza Dough", "Amount": 1.0 },
+      { "Name": "Tomato Sauce", "Amount": 0.5 },
+      { "Name": "Mozzarella Cheese", "Amount": 0.3 }
+    ]
+  },
+  "P002": {
+    "Ingredients": [
+      { "Name": "Pizza Dough", "Amount": 1.0 },
+      { "Name": "Tomato Sauce", "Amount": 0.5 },
+      { "Name": "Mozzarella Cheese", "Amount": 0.3 },
+      { "Name": "Pepperoni", "Amount": 0.2 }
+    ]
+  },
+  "P003": {
+    "Ingredients": [
+      { "Name": "Pizza Dough", "Amount": 1.0 },
+      { "Name": "Tomato Sauce", "Amount": 0.5 },
+      { "Name": "Mozzarella Cheese", "Amount": 0.3 },
+      { "Name": "Bell Peppers", "Amount": 0.15 },
+      { "Name": "Mushrooms", "Amount": 0.15 }
+    ]
+  },
+  "P004": {
+    "Ingredients": [
+      { "Name": "Pizza Dough", "Amount": 1.0 },
+      { "Name": "Tomato Sauce", "Amount": 0.5 },
+      { "Name": "Mozzarella Cheese", "Amount": 0.4 },
+      { "Name": "Pepperoni", "Amount": 0.2 },
+      { "Name": "Italian Sausage", "Amount": 0.2 }
+    ]
+  },
+  "P005": {
+    "Ingredients": [
+      { "Name": "Bread Loaf", "Amount": 0.25 },
+      { "Name": "Butter", "Amount": 0.05 },
+      { "Name": "Fresh Garlic", "Amount": 0.02 }
+    ]
+  },
+  "P006": {
+    "Ingredients": [
+      { "Name": "Romaine Lettuce", "Amount": 0.3 },
+      { "Name": "Caesar Dressing", "Amount": 0.08 },
+      { "Name": "Parmesan Cheese", "Amount": 0.03 },
+      { "Name": "Croutons", "Amount": 0.05 }
+    ]
+  },
+  "P007": {
+    "Ingredients": [
+      { "Name": "Chicken Wings", "Amount": 0.5 },
+      { "Name": "Buffalo Sauce", "Amount": 0.1 },
+      { "Name": "Celery", "Amount": 0.05 },
+      { "Name": "Ranch Dressing", "Amount": 0.03 }
+    ]
+  },
+  "P008": {
+    "Ingredients": [
+      { "Name": "Chocolate Cake Slice", "Amount": 1.0 },
+      { "Name": "Chocolate Frosting", "Amount": 0.1 }
+    ]
+  }
+}

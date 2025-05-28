@@ -1,0 +1,34 @@
+{
+  "P001": {
+    "ProductName": "Margherita Pizza",
+    "Price": 28.00
+  },
+  "P002": {
+    "ProductName": "Pepperoni Pizza",
+    "Price": 34.00
+  },
+  "P003": {
+    "ProductName": "Veggie Pizza",
+    "Price": 32.00
+  },
+  "P004": {
+    "ProductName": "Meat Lovers Pizza",
+    "Price": 38.00
+  },
+  "P005": {
+    "ProductName": "Garlic Bread",
+    "Price": 14.00
+  },
+  "P006": {
+    "ProductName": "Caesar Salad",
+    "Price": 18.00
+  },
+  "P007": {
+    "ProductName": "Chicken Wings",
+    "Price": 24.00
+  },
+  "P008": {
+    "ProductName": "Chocolate Cake",
+    "Price": 16.00
+  }
+}

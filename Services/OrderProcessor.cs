@@ -165,5 +165,62 @@ namespace PizzeriaOrderProcessor.Services
                 }
             }
         }
+
+        /// <summary>
+        /// Displays processed order summaries and the required ingredients to the console.
+        /// </summary>
+        /// <param name="validOrders">List of validated and processed orders.</param>
+        /// <param name="totalIngredients">Aggregated ingredient requirements.</param>
+        private static void DisplayResults(List<OrderSummary> validOrders, Dictionary<string, decimal> totalIngredients)
+        {
+            Console.WriteLine("\n" + new string('=', 35));
+            Console.WriteLine("ORDER PROCESSING SUMMARY");
+            Console.WriteLine(new string('=', 35));
+
+            Console.WriteLine($"\nProcessed {validOrders.Count} valid orders:");
+            Console.WriteLine(new string('-', 35));
+
+            foreach (var order in validOrders.OrderBy(o => o.OrderId))
+            {
+                Console.WriteLine($"\nOrder ID: {order.OrderId}");
+                Console.WriteLine($"Created: {order.CreatedAt:yyyy-MM-dd HH:mm}");
+                Console.WriteLine($"Delivery: {order.DeliveryAt:yyyy-MM-dd HH:mm}");
+                Console.WriteLine($"Address: {order.DeliveryAddress}");
+                Console.WriteLine("Items:");
+
+                foreach (var item in order.Items)
+                {
+                    Console.WriteLine($"  - {item.ProductName} x{item.Quantity} @ AED {item.UnitPrice:F2} = AED {item.TotalPrice:F2}");
+                }
+                Console.WriteLine($"Total: AED {order.TotalPrice:F2}");
+            }
+
+            Console.WriteLine($"\nGrand Total: AED {validOrders.Sum(o => o.TotalPrice):F2}");
+
+            Console.WriteLine("\n" + new string('-', 35));
+            Console.WriteLine("INGREDIENT REQUIREMENTS");
+            Console.WriteLine(new string('-', 35));
+
+            foreach (var ingredient in totalIngredients.OrderBy(kvp => kvp.Key))
+            {
+                Console.WriteLine($"{ingredient.Key}: {ingredient.Value:F2} units");
+            }
+        }
+
+        /// <summary>
+        /// Loads and processes customer orders, then prints order summaries and ingredient needs.
+        /// </summary>
+        /// <param name="orderFilePath">Optional path to the order file. Uses default if not provided.</param>
+        public void ProcessOrders(string? orderFilePath = null)
+        {
+            // Load orders using default path if none provided
+            var orders = _dataService.LoadOrders(orderFilePath);
+
+            // Process orders and get results
+            var validOrderSummaries = ProcessValidOrders(orders, out var totalIngredients);
+
+            // Display results
+            DisplayResults(validOrderSummaries, totalIngredients);
+        }
     }
 }

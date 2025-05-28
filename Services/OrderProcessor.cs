@@ -213,14 +213,21 @@ namespace PizzeriaOrderProcessor.Services
         /// <param name="orderFilePath">Optional path to the order file. Uses default if not provided.</param>
         public void ProcessOrders(string? orderFilePath = null)
         {
-            // Load orders using default path if none provided
-            var orders = _dataService.LoadOrders(orderFilePath);
+            try
+            {
+                // Load orders using default path if none provided
+                var orders = _dataService.LoadOrders(orderFilePath);
 
-            // Process orders and get results
-            var validOrderSummaries = ProcessValidOrders(orders, out var totalIngredients);
+                // Process orders and get results
+                var validOrderSummaries = ProcessValidOrders(orders, out var totalIngredients);
 
-            // Display results
-            DisplayResults(validOrderSummaries, totalIngredients);
+                // Display results
+                DisplayResults(validOrderSummaries, totalIngredients);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error processing orders: {ex.Message}");
+            }
         }
     }
 }

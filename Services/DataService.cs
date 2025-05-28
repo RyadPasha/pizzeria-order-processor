@@ -64,7 +64,7 @@ namespace PizzeriaOrderProcessor.Services
             filePath ??= _config.OrdersFilePath;
             EnsureFileExists(filePath, "Orders");
 
-            var extension = Path.GetExtension(filePath);
+            var extension = Path.GetExtension(filePath).ToLower();
 
             return extension switch
             {
